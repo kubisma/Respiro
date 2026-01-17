@@ -44,8 +44,7 @@ self.addEventListener('activate', event => {
           .map(key => caches.delete(key))
       )
     )
-  );
-  self.clients.claim();
+  );  
 });
 
 // Zasoby (cache first)
@@ -106,4 +105,3 @@ self.addEventListener('fetch', event => {
     event.respondWith(staleWhileRevalidate(request));
   }
 });
-
