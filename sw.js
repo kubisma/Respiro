@@ -11,6 +11,7 @@ const APP_ASSETS = [
 
   '/src/app.js',
   '/src/data.js',
+  
   '/src/features.js',
   '/src/session.js',
   '/src/sound.js',
@@ -18,6 +19,7 @@ const APP_ASSETS = [
   '/src/theme.js',
   '/src/ui.js',
   '/src/offline.js',
+  '/src/dom.js',
 
   '/sounds/inhale.mp3',
   '/sounds/hold.mp3',
