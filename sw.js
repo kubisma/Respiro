@@ -17,6 +17,7 @@ const APP_ASSETS = [
   '/src/state.js',
   '/src/theme.js',
   '/src/ui.js',
+  '/src/offline.js',
 
   '/sounds/inhale.mp3',
   '/sounds/hold.mp3',
@@ -105,3 +106,4 @@ self.addEventListener('fetch', event => {
     event.respondWith(staleWhileRevalidate(request));
   }
 });
+
