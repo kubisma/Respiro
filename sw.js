@@ -11,7 +11,7 @@ const APP_ASSETS = [
 
   '/src/app.js',
   '/src/data.js',
-  
+  '/src/dom.js',
   '/src/features.js',
   '/src/session.js',
   '/src/sound.js',
@@ -19,21 +19,22 @@ const APP_ASSETS = [
   '/src/theme.js',
   '/src/ui.js',
   '/src/offline.js',
-  '/src/dom.js',
-
+  
   '/sounds/inhale.mp3',
   '/sounds/hold.mp3',
   '/sounds/exhale.mp3',
 
   '/icons/icon-192.png',
   '/icons/icon-512.png',
+  '/favicon.ico'
 ];
 
 // Instalacja
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_ASSETS))      
+      .then(cache => cache.addAll(APP_ASSETS))
   );
 });
 
@@ -46,11 +47,12 @@ self.addEventListener('activate', event => {
           .filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
       )
-    )
-  );  
+    ).then(() => self.clients.claim())
+  );
 });
 
-// Zasoby (cache first)
+
+// Zasoby cache first
 const isCacheFirstAsset = request => {
   const url = new URL(request.url);
 
@@ -58,18 +60,19 @@ const isCacheFirstAsset = request => {
     url.pathname.startsWith('/icons/') ||
     url.pathname.startsWith('/sounds/') ||
     url.pathname.startsWith('/fonts/') ||
+    url.pathname.endsWith('.ico') ||
     url.pathname.match(/\.(png|mp3|woff2)$/)
   );
 };
 
-// Strategia cache first
+// Strtegia cache first
 const cacheFirst = request =>
   caches.match(request).then(cached => {
     if (cached) return cached;
 
     return fetch(request).then(response => {
       if (!response || !response.ok) return response;
-      
+
       const clone = response.clone();
       caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
 
@@ -99,6 +102,7 @@ self.addEventListener('fetch', event => {
   const { request } = event;
 
   if (request.method !== 'GET') return;
+
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
@@ -108,4 +112,3 @@ self.addEventListener('fetch', event => {
     event.respondWith(staleWhileRevalidate(request));
   }
 });
-
