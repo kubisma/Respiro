@@ -65,8 +65,8 @@ const cacheFirst = request =>
     if (cached) return cached;
 
     return fetch(request).then(response => {
-      if (!response || response.status !== 200) return response;
-
+      if (!response || !response.ok) return response;
+      
       const clone = response.clone();
       caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
 
@@ -79,7 +79,7 @@ const staleWhileRevalidate = request =>
   caches.match(request).then(cached => {
     const fetchPromise = fetch(request)
       .then(response => {
-        if (!response || response.status !== 200) return response;
+        if (!response || !response.ok) return response;
 
         const clone = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
