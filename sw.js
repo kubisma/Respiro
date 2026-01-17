@@ -65,7 +65,7 @@ const isCacheFirstAsset = request => {
   );
 };
 
-// Strtegia cache first
+// Strategia cache first
 const cacheFirst = request =>
   caches.match(request).then(cached => {
     if (cached) return cached;
