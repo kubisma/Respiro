@@ -1,44 +1,42 @@
-const CACHE_NAME = 'respiro-cache-v1';
+const CACHE_NAME = 'respiro-v1';
 
 const APP_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.webmanifest',
-
-  '/css/style.css',
-
-  '/fonts/lato-regular.woff2',
-
-  '/src/app.js',
-  '/src/data.js',
-  '/src/dom.js',
-  '/src/features.js',
-  '/src/session.js',
-  '/src/sound.js',
-  '/src/state.js',
-  '/src/theme.js',
-  '/src/ui.js',
-  '/src/offline.js',
-  
-  '/sounds/inhale.mp3',
-  '/sounds/hold.mp3',
-  '/sounds/exhale.mp3',
-
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/favicon.ico'
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './css/style.css',
+  './fonts/lato-regular.woff2',
+  './src/app.js',
+  './src/data.js',
+  './src/dom.js',
+  './src/features.js',
+  './src/session.js',
+  './src/sound.js',
+  './src/state.js',
+  './src/theme.js',
+  './src/ui.js',
+  './src/offline.js',
+  './sounds/inhale.mp3',
+  './sounds/hold.mp3',
+  './sounds/exhale.mp3',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './favicon.ico',
+  './screenshots/desktop-home.png',
+  './screenshots/mobile-home.png'
 ];
 
-// Instalacja
+// 1. Instalacja
 self.addEventListener('install', event => {
   self.skipWaiting();
+
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(APP_ASSETS))
   );
 });
 
-// Aktywacja
+// 2. Aktywacja
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -51,17 +49,19 @@ self.addEventListener('activate', event => {
   );
 });
 
-
 // Zasoby cache first
 const isCacheFirstAsset = request => {
-  const url = new URL(request.url);
+  const url = request.url;
 
   return (
-    url.pathname.startsWith('/icons/') ||
-    url.pathname.startsWith('/sounds/') ||
-    url.pathname.startsWith('/fonts/') ||
-    url.pathname.endsWith('.ico') ||
-    url.pathname.match(/\.(png|mp3|woff2)$/)
+    url.includes('/icons/') ||
+    url.includes('/sounds/') ||
+    url.includes('/fonts/') ||
+    url.includes('/screenshots/') ||
+    url.endsWith('.ico') ||
+    url.endsWith('.woff2') ||
+    url.endsWith('.mp3') ||
+    url.endsWith('.png')
   );
 };
 
