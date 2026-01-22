@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Lato";
-  src: url("/fonts/lato-regular.woff2") format("woff2");
+  src: url("../fonts/lato-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -14,7 +14,6 @@ html {
   --radius: 10px;  
 }
 
-/*   Motywy  */
 [data-theme="dark"] {
   --background: #0a0a0a;   
   --card: #161b18;      
@@ -25,7 +24,7 @@ html {
 }
 
 [data-theme="light"] {
-  --background: #f4f8ff;;
+  --background: #f4f8ff;
   --card: #ffffff;
   --accent: #60b3fb9a;
   --text: #0c3860;
@@ -82,7 +81,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-/*   Karty ćwiczeń  */
+
 .card {
   padding: 12px;
   background: var(--card);  
@@ -101,12 +100,12 @@ body {
   color: var(--text);
 }
 
-/*   Parametry ćwiczenia  */
 .params {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 1px 0;
+  column-gap: 10px;
+  row-gap: 1px; 
+  margin: 8px 0;
 }
 
 .params p {
@@ -116,7 +115,6 @@ body {
   font-size: 0.95rem;
 }
 
-/*  Przyciski  */
 button {
   padding: 10px 14px;
   border-radius: var(--radius);
@@ -124,7 +122,7 @@ button {
   cursor: pointer;
   border: none;  
   background: var(--accent);
-  color: #ffffff
+  color: #ffffff;
 }
 
 button.secondary {
@@ -132,6 +130,40 @@ button.secondary {
   color: var(--text);
   border: 2px solid var(--accent);
   background: none;  
+}
+
+.presets {
+  margin-top: 16px;
+}
+
+.presets p {
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+.preset-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.preset-buttons button {
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 0.95rem;
+
+  background: none;
+  color: var(--text);
+  border: 2px solid var(--accent);
+}
+
+.preset-buttons button.active {
+  background: var(--card);
+  color: var(--text);
+  border: none;
 }
 
 .controls {
@@ -149,7 +181,6 @@ button.secondary {
   padding: 18px 0;
 }
 
-/*   Wizualizacja oddechu  */
 .circle {
   width: 180px;
   height: 180px;
@@ -157,17 +188,18 @@ button.secondary {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
   background: radial-gradient(
     circle at 40% 30%,
     color-mix(in srgb, var(--accent) 85%, white 15%),
     color-mix(in srgb, var(--accent) 92%, black 8%) 70%
   );
-  transition: transform 1.1s ease-in-out;
 }
 
 .phase {
   font-weight: 600;
   color: var(--text);
+  margin-bottom: 30px;
 }
 
 @media (max-width: 420px) {
@@ -189,4 +221,3 @@ button.secondary {
   border-radius: 4px;    
   font-size: 0.8rem;    
 }
- 
