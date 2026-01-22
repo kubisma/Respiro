@@ -4,9 +4,15 @@ const THEME_KEY = "theme";
 
 // Pobieranie motywu aplikacji
 export function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY);
+  let saved = null;
 
-  if (saved) {
+  try {
+    saved = localStorage.getItem(THEME_KEY);
+  } catch (err) {
+    console.warn("Nie można wczytać motywu", err);
+  }
+
+  if (saved === "light" || saved === "dark") {
     applyTheme(saved);
   } else {
     const prefersLight =
@@ -26,5 +32,10 @@ export function toggleTheme() {
 function applyTheme(theme) {
   state.theme = theme;
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem(THEME_KEY, theme);
+
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch (err) {
+    console.warn("Nie można zapisać motywu", err);
+  }
 }
