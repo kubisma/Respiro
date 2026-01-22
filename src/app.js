@@ -7,21 +7,30 @@ import {
   updateFullscreenButton,
   updateWakeLockButton,
   updateSoundButton,
-  updateThemeButton,  
+  updateThemeButton
 } from "./ui.js";
 
 import { startSession, stopSession } from "./session.js";
 import { playPhaseSound, toggleSound } from "./sound.js";
-import { toggleFullscreen, exitFullscreenIfActive, toggleWakeLock } from "./features.js";
+import {
+  toggleFullscreen,
+  exitFullscreenIfActive,
+  toggleWakeLock
+} from "./features.js";
 
 import { dom } from "./dom.js";
 import { state } from "./state.js";
 import { initTheme, toggleTheme } from "./theme.js";
 import { enableOfflineBanner } from "./offline.js";
 
+const SESSION_PRESETS = {
+  short: 3,
+  medium: 5,
+  long: 10
+};
+
 document.addEventListener("DOMContentLoaded", init);
 
-// Inicjalizacja aplikacji
 function init() {
   initTheme();
   updateThemeButton(state.theme);
@@ -37,17 +46,17 @@ function init() {
   enableOfflineBanner();
 }
 
-// Obsługa pełnego ekranu
 function registerSystemEventHandlers() {
   document.addEventListener("fullscreenchange", () => {
     updateFullscreenButton(!!document.fullscreenElement);
   });
 }
 
-// Obsługa zdarzeń interfejsu
 function registerUIEventHandlers() {
-  dom.backBtn?.addEventListener("click", goHome);
-  dom.stopBtn?.addEventListener("click", goHome);
+  
+  dom.backBtn?.addEventListener("click", () => goHome("home"));
+  dom.sessionBackBtn?.addEventListener("click", () => goHome("details"));
+  dom.stopBtn?.addEventListener("click", () => goHome("home"));
 
   dom.startBtn?.addEventListener("click", startSessionHandler);
 
@@ -64,18 +73,30 @@ function registerUIEventHandlers() {
   dom.fsBtn?.addEventListener("click", () => toggleFullscreen());
 
   dom.aboutBtn?.addEventListener("click", goAbout);
-  dom.aboutBackBtn?.addEventListener("click", goHome);
+  dom.aboutBackBtn?.addEventListener("click", () => goHome("home"));
 
   dom.themeBtn?.addEventListener("click", () => {
     toggleTheme();
     updateThemeButton(state.theme);
   });
+
+  document.querySelectorAll("[data-preset]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.sessionPreset = btn.dataset.preset;
+
+      document
+        .querySelectorAll("[data-preset]")
+        .forEach(b => b.classList.remove("active"));
+
+      btn.classList.add("active");
+    });
+  });
 }
 
-function goHome() {
+function goHome(view = "home") {
   stopSession();
   exitFullscreenIfActive();
-  showView("home");
+  showView(view);
 }
 
 function goAbout() {
@@ -84,24 +105,29 @@ function goAbout() {
   showView("about");
 }
 
-// Wybór ćwiczenia z listy
 function selectExercise(exercise) {
   state.currentExercise = exercise;
   renderDetails(exercise);
   showView("details");
 }
 
-// Obsługa rozpoczęcia sesji
 function startSessionHandler() {
   if (!state.currentExercise) return;
 
   showView("session");
-  dom.sessionTitle.textContent = state.currentExercise.title;
+  dom.sessionTitle.textContent =
+    state.currentExercise.title;
 
-  startSession(state.currentExercise, onSessionUpdate);
+  const targetMinutes =
+    SESSION_PRESETS[state.sessionPreset] ?? 5;
+
+  startSession(
+    state.currentExercise,
+    onSessionUpdate,
+    targetMinutes
+  );
 }
 
-// Obsługa aktualizacji sesji
 function onSessionUpdate(data) {
   updateSessionUI(data);
 
