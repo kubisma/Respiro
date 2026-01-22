@@ -16,6 +16,7 @@ export const dom = {
   backBtn: document.getElementById("backBtn"),
   startBtn: document.getElementById("startBtn"),
   stopBtn: document.getElementById("stopBtn"),
+  sessionBackBtn: document.getElementById("sessionBackBtn"),
 
   soundBtn: document.getElementById("soundBtn"),
   wakeBtn: document.getElementById("wakeBtn"),
