@@ -38,7 +38,7 @@ Podczas braku połączenia z internetem użytkownik otrzymuje informację o tryb
 
 ### Możliwe rozszerzenia
 
-- Timer ćwiczeń
+- Powiadomienia
 - Statystyki ćwiczeń
 - Obsługa wibracji (Vibration API)
 
