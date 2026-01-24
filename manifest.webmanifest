@@ -11,13 +11,13 @@
   "theme_color": "#030717",
   "icons": [
     {
-      "src": "/icons/icon-192.png",
+      "src": "./icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "./icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -25,14 +25,14 @@
   ],  
   "screenshots": [
   {
-    "src": "/screenshots/mobile-menu.png",
+    "src": "./screenshots/mobile-menu.png",
     "sizes": "1080x1920",
     "type": "image/png",
     "form_factor": "narrow",
     "label": "Ekran główny aplikacji - aplikacja mobilna"
   },
   {
-    "src": "/screenshots/desktop-menu.png",
+    "src": "./screenshots/desktop-menu.png",
     "sizes": "1920x1080",
     "type": "image/png",
     "form_factor": "wide",
@@ -40,4 +40,3 @@
   }
 ]
 }
-
