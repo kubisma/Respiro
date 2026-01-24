@@ -2,21 +2,31 @@ let intervalId = null;
 
 const PREP_TIME = 3;
 
+// Skala animacji oddechu
 const PHASE_SCALE = {
   Wdech: 1.1,
   Wydech: 0.9,
   Wstrzymanie: 1
 };
 
-// Start sesji ćwiczenia
-export function startSession(exercise, onUpdate) {
-  stopSession();
+// Start sesji
+export function startSession(
+  exercise,
+  onUpdate,
+  targetMinutes = 5) {
 
+  stopSession();
   const phases = buildPhases(exercise);
+
+  const cycleDuration = exercise.phases.reduce((sum, p) => sum + p.duration, 0);
+
+  const cycles = Math.max(1, Math.round((targetMinutes * 60) / cycleDuration));
 
   let phaseIndex = 0;
   let remaining = phases[0].duration;
+  let cyclesLeft = cycles;
   let lastTickTime = Date.now();
+  let totalRemaining = PREP_TIME + cycleDuration * cycles;
 
   function tick() {
     const now = Date.now();
@@ -31,7 +41,7 @@ export function startSession(exercise, onUpdate) {
     }
   }
 
-// Obsługa czasu sesji i zmiana faz
+  // Obsługa czasu sesji i zmiana faz
   function tickSession() {
     const phase = phases[phaseIndex];
 
@@ -40,13 +50,32 @@ export function startSession(exercise, onUpdate) {
       remaining,
       duration: phase.duration,
       scale: phase.scale,
-      phaseChanged: remaining === phase.duration
+      phaseChanged: remaining === phase.duration,
+      totalRemaining
     });
 
     remaining--;
+    totalRemaining--;
 
     if (remaining === 0) {
-      phaseIndex = phaseIndex < phases.length - 1 ? phaseIndex + 1 : 1;
+      if (phaseIndex < phases.length - 1) {
+        phaseIndex++;
+      } else {
+
+        cyclesLeft--;
+
+        if (cyclesLeft === 0) {
+          stopSession();
+          onUpdate({
+            phase: "Koniec",
+            remaining: 0,
+            totalRemaining: 0
+          });
+          return;
+        }
+        phaseIndex = 1;
+      }
+
       remaining = phases[phaseIndex].duration;
     }
   }
@@ -58,14 +87,19 @@ export function startSession(exercise, onUpdate) {
 // Zatrzymanie sesji
 export function stopSession() {
   if (!intervalId) return;
+
   clearInterval(intervalId);
   intervalId = null;
 }
 
-// Tworzenie listy faz sesji
+// Tworzenie sesji 
 function buildPhases(exercise) {
   return [
-    { label: "Przygotowanie", duration: PREP_TIME, scale: 1 },
+    {
+      label: "Przygotowanie",
+      duration: PREP_TIME,
+      scale: 1
+    },
     ...exercise.phases.map(p => ({
       label: p.label,
       duration: p.duration,
