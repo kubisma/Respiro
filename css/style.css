@@ -13,7 +13,7 @@ html {
 :root {  
   --radius: 10px;  
 }
-
+/* Motywy */
 [data-theme="dark"] {
   --background: #0a0a0a;   
   --card: #161b18;      
@@ -32,6 +32,7 @@ html {
   color-scheme: light;
 }
 
+/* Style globalne */
 body {
   margin: 0;
   font-family: Lato, system-ui, Arial, sans-serif; 
@@ -53,10 +54,6 @@ body {
   font-size: 1.3rem;
 }
 
-#aboutBtn {
-  margin-left: auto;
-}
-
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -76,12 +73,13 @@ body {
   gap: 12px;
 }
 
+/* Responsywność */
 @media (min-width: 520px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
+/* Karty ćwiczeń */
 .card {
   padding: 12px;
   background: var(--card);  
@@ -105,39 +103,54 @@ body {
   flex-wrap: wrap;
   column-gap: 10px;
   row-gap: 1px; 
-  margin: 8px 0;
 }
 
 .params p {
   padding: 8px 12px;
   background: var(--card);  
   border-radius: var(--radius);
-  font-size: 0.95rem;
+  font-size: 0.90rem;
 }
 
+/*Przyciski */
 button {
-  padding: 10px 14px;
+  appearance: none;
+  font-family: inherit;
   border-radius: var(--radius);
-  font-weight: 600;
   cursor: pointer;
-  border: none;  
+  border: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.primary {
+  padding: 10px 14px;
+  font-weight: 600;
   background: var(--accent);
-  color: #ffffff;
+  color: #ffffff;  
 }
 
 button.secondary {
   padding: 10px 14px;  
   color: var(--text);
   border: 2px solid var(--accent);
-  background: none;  
+  font-weight: 400;
+  background: none;
 }
 
+#aboutBtn {
+  margin-left: auto;
+}
+
+/* Przyciski ustawienia sesji */
 .presets {
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .presets p {
-  margin: 0 0 8px;
+  margin: 30px 0 8px;
   font-weight: 400;
 }
 
@@ -148,19 +161,19 @@ button.secondary {
   flex-wrap: wrap;
 }
 
-.preset-buttons button {
+.preset-buttons .preset {
   padding: 8px 14px;
   border-radius: var(--radius);
   font-weight: 400;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.90rem;
 
   background: none;
   color: var(--text);
   border: 2px solid var(--accent);
 }
 
-.preset-buttons button.active {
+.preset-buttons .preset.active {
   background: var(--card);
   color: var(--text);
   border: none;
@@ -173,6 +186,7 @@ button.secondary {
   margin-top: 12px;
 }
 
+/* Wizualizacja oddechu */
 .visual {
   display: flex;
   flex-direction: column;
