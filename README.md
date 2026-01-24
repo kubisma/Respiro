@@ -5,9 +5,9 @@ Aplikacja prowadzi użytkownika przez sesje oddechowe z podziałem na fazy oraz 
 Działa również offline jako Progressive Web App (PWA).
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-  <img src="screenshots/mobile-home.png" alt="Ekran główny" style="width: 30%; height: auto;">
-  <img src="screenshots/mobile-description.png" alt="Ekran główny" style="width: 30%; height: auto;">
-  <img src="screenshots/mobile-session.png" alt="Ekran główny" style="width: 30%; height: auto;">
+  <img src="screenshots/mobile-home1.png" alt="Ekran główny" style="width: 30%; height: auto;">
+  <img src="screenshots/mobile-description1.png" alt="Ekran główny" style="width: 30%; height: auto;">
+  <img src="screenshots/mobile-session1.png" alt="Ekran główny" style="width: 30%; height: auto;">
 </div>
 
 ### Funkcje
