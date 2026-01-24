@@ -15,18 +15,27 @@ export function exitFullscreenIfActive() {
 
 // Blokada ekranu
 let wakeLock = null;
+let isRequestingWakeLock = false;
 
 export async function toggleWakeLock() {
   if (!("wakeLock" in navigator)) {
     return false;
   }
 
+  if (isRequestingWakeLock) {
+    return wakeLock !== null;
+  }
+  isRequestingWakeLock = true;
   try {
     if (!wakeLock) {
-      wakeLock = await navigator.wakeLock.request("screen");
+      const lock = await navigator.wakeLock.request("screen");
+
+      wakeLock = lock;
+
       wakeLock.addEventListener("release", () => {
         wakeLock = null;
       });
+
       return true;
     } else {
       await wakeLock.release();
@@ -34,6 +43,9 @@ export async function toggleWakeLock() {
       return false;
     }
   } catch {
-    return false;
+    return wakeLock !== null;
+  } finally {
+
+    isRequestingWakeLock = false;
   }
 }
