@@ -3,147 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Respiro</title>
 
+  <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#030717">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<div class="topbar">
-  <h1>Respiro</h1>
-  <button id="aboutBtn" class="secondary">O aplikacji</button>
-  <button
-    id="themeBtn"
-    class="secondary"
-    aria-label="Zmień motyw"
-  >
-    Motyw jasny
-  </button>
-</div>
-
-<div class="container">
-
-  <section id="view-home" class="view active">
-    <h2>Wybierz ćwiczenie</h2>
-    <div id="exerciseList" class="cards"></div>
-  </section>
-
-  <section id="view-details" class="view">
-    <button id="backBtn" class="secondary">
-      Lista ćwiczeń
+  <header class="topbar">
+    <h1>Respiro</h1>
+    <button id="aboutBtn" class="secondary">O aplikacji</button>
+    <button
+      id="themeBtn"
+      class="secondary"
+      aria-label="Zmień motyw"
+    >
+      Motyw jasny
     </button>
+  </header>
 
-    <h2 id="detailsTitle"></h2>
-    <p id="detailsDesc"></p>
-    <div id="detailsParams" class="params"></div>
+  <main class="container">
 
-    <div class="presets">
-      <p>Długość sesji:</p>
+    <!-- Strona główna -->
+    <section id="view-home" class="view active">
+      <h2>Wybierz ćwiczenie</h2>
+      <div id="exerciseList" class="cards"></div>
+    </section>
 
-      <div class="preset-buttons">
-        <button data-preset="short">Krótka</button>
-        <button data-preset="medium" class="active">
-          Średnia
-        </button>
-        <button data-preset="long">Długa</button>
+    <!-- Szczegóły ćwiczenia -->
+    <section id="view-details" class="view">
+      <button id="backBtn" class="secondary">Lista ćwiczeń</button>
+
+      <h2 id="detailsTitle"></h2>
+      <div id="detailsParams" class="params"></div>
+      <p id="detailsDesc"></p>
+
+      <div class="presets">
+        <p>Długość sesji:</p>
+
+        <div class="preset-buttons">
+          <button class="preset" data-preset="short">3&nbsp;minuty</button>
+          <button class="preset active" data-preset="medium">5&nbsp;minut</button>
+          <button class="preset" data-preset="long">10&nbsp;minut</button>
+
+          <button id="startBtn" class="primary">Start</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sesja -->
+    <section id="view-session" class="view">
+      <h2 id="sessionTitle"></h2>
+
+      <button id="sessionBackBtn" class="secondary">Wstecz</button>
+
+      <div class="visual">
+        <div id="circle" class="circle">
+          <p id="timer"></p>
+        </div>
+
+        <p id="phase" class="phase"></p>
       </div>
 
-      <button id="startBtn">Start</button>
-    </div>
-  </section>
-
-  <section id="view-session" class="view">
-    <h2 id="sessionTitle"></h2>
-    <div class="controls"></div>
-    <button id="sessionBackBtn" class="secondary">Wstecz</button>      
-
-    <div class="visual">
-      <div id="circle" class="circle">
-        <p id="timer"></p>
+      <div class="controls">
+        <button id="soundBtn" class="secondary">Dźwięk</button>
+        <button id="wakeBtn" class="secondary">Blokada ekranu</button>
+        <button id="fsBtn" class="secondary">Pełny ekran</button>
+        <button id="stopBtn" class="primary">Zakończ</button>
       </div>
-      <p id="phase" class="phase"></p>
-    </div>
+    </section>
 
-    <div class="controls">
-      <button id="soundBtn" class="secondary">Dźwięk</button>
-      <button id="wakeBtn" class="secondary">Blokada ekranu</button>
-      <button id="fsBtn" class="secondary">Pełny ekran</button>  
-      <button id="stopBtn">Zakończ</button>
-    </div>
-  </section>
+    <!-- O aplikacji -->
+    <section id="view-about" class="view">
+      <button id="aboutBackBtn" class="secondary">Lista ćwiczeń</button>
 
-  <section id="view-about" class="view">
-    <button id="aboutBackBtn" class="secondary">
-      Lista ćwiczeń
-    </button>
+      <h2>O aplikacji</h2>
 
-    <h2>O aplikacji</h2>
+      <p>
+        <strong>Respiro</strong> (łac.&nbsp;<em>oddychać</em>)
+        to prosta aplikacja do ćwiczeń oddechowych.
+      </p>
 
-    <p>
-      <strong>Respiro</strong> (łac. <em>oddychać</em>) to
-      prosta aplikacja do ćwiczeń oddechowych.
-    </p>
+      <p>
+        Regularne ćwiczenia oddechu mogą pomóc
+        w&nbsp;redukcji stresu poprawie koncentracji
+        oraz jakości snu.
+      </p>
 
-    <p>
-      Regularne ćwiczenia oddechu mogą pomóc
-      w redukcji stresu, poprawie koncentracji
-      oraz jakości snu.
-    </p>
+      <p>
+        Prezentowane ćwiczenia bazują na&nbsp;metodach
+        opisywanych w&nbsp;literaturze naukowej oraz
+        wykorzystywanych w&nbsp;psychologii medycynie
+        i&nbsp;terapii oddechowej.
+      </p>
 
-    <p>
-      Prezentowane ćwiczenia bazują na metodach
-      opisywanych w literaturze naukowej oraz
-      wykorzystywanych w psychologii, medycynie
-      i terapii oddechowej.
-    </p>
+      <p>
+        Aplikacja działa w&nbsp;technologii Progressive Web App (PWA)
+        i&nbsp;umożliwia instalację oraz korzystanie z&nbsp;niej
+        w&nbsp;trybie aplikacji natywnej.
+      </p>
 
-    <p>
-      Aplikacja została zaprojektowana jako
-      <strong>Progressive Web App (PWA)</strong>,
-      dzięki czemu może zostać zainstalowana
-      na urządzeniu mobilnym lub komputerze
-      i używana jak aplikacja natywna.
-    </p> 
+      <p>
+        Respiro działa również bez dostępu do&nbsp;internetu.
+        Aplikację można zainstalować wybierając w&nbsp;przeglądarce
+        opcję „Zainstaluj” lub „Dodaj do&nbsp;ekranu głównego”.
+      </p>
+    </section>
 
-    <p>Respiro może działać bez dostępu do internetu.
-      Aby zainstalować aplikację znajdź opcję "Zainstaluj" lub dodaj "Do ekranu głównego"
-      w swojej przeglądarce.  
-    </p>
+  </main>
 
-  </section>
+  <div id="offlineBanner">Aplikacja jest w&nbsp;trybie offline</div>
 
-</div>
+  <script type="module" src="./src/app.js"></script>
 
-<script type="module" src="./src/app.js"></script>
-
-<!-- Rejestracja service worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('./sw.js')
-        .then(registration => {
-          console.log(
-            'Service Worker zarejestrowany:',
-            registration.scope
-          );
-        })
-        .catch(error => {
-          console.error(
-            'Błąd rejestracji Service Workera:',
-            error
-          );
-        });
-    });
-  }
-</script>
-
-<div id="offlineBanner">
-  Aplikacja jest w trybie offline
-</div>
+  <!-- Rejestracja service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./sw.js')
+          .then(reg => {
+            console.log(
+              'Service Worker zarejestrowany:',
+              reg.scope
+            );
+          })
+          .catch(err => {
+            console.error(
+              'Błąd rejestracji Service Workera:',
+              err
+            );
+          });
+      });
+    }
+  </script>
 
 </body>
 </html>
