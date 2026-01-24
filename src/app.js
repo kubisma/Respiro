@@ -12,17 +12,14 @@ import {
 
 import { startSession, stopSession } from "./session.js";
 import { playPhaseSound, toggleSound } from "./sound.js";
-import {
-  toggleFullscreen,
-  exitFullscreenIfActive,
-  toggleWakeLock
-} from "./features.js";
+import {toggleFullscreen, exitFullscreenIfActive, toggleWakeLock} from "./features.js";
 
 import { dom } from "./dom.js";
 import { state } from "./state.js";
 import { initTheme, toggleTheme } from "./theme.js";
 import { enableOfflineBanner } from "./offline.js";
 
+// Ustawienia czasu ćwiczenia
 const SESSION_PRESETS = {
   short: 3,
   medium: 5,
@@ -31,6 +28,7 @@ const SESSION_PRESETS = {
 
 document.addEventListener("DOMContentLoaded", init);
 
+// Inicjalizacja aplikacji
 function init() {
   initTheme();
   updateThemeButton(state.theme);
@@ -46,12 +44,14 @@ function init() {
   enableOfflineBanner();
 }
 
+// Obsługa pełnego ekranu
 function registerSystemEventHandlers() {
   document.addEventListener("fullscreenchange", () => {
     updateFullscreenButton(!!document.fullscreenElement);
   });
 }
 
+// Obsługa zdarzeń interfejsu
 function registerUIEventHandlers() {
   
   dom.backBtn?.addEventListener("click", () => goHome("home"));
@@ -105,12 +105,14 @@ function goAbout() {
   showView("about");
 }
 
+// Wybór ćwiczenia z listy
 function selectExercise(exercise) {
   state.currentExercise = exercise;
   renderDetails(exercise);
   showView("details");
 }
 
+// Obsługa rozpoczęcia sesji
 function startSessionHandler() {
   if (!state.currentExercise) return;
 
@@ -128,6 +130,7 @@ function startSessionHandler() {
   );
 }
 
+// Obsługa aktualizacji sesji
 function onSessionUpdate(data) {
   updateSessionUI(data);
 
