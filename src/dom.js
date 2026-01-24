@@ -28,4 +28,3 @@ export const dom = {
   // Baner offline
   offlineBanner: document.getElementById("offlineBanner"),
 };
-
