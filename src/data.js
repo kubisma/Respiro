@@ -2,7 +2,7 @@
 export const exercises = [
   {
     title: "Oddychanie pudełkowe",
-    desc: "Technika stosowana m.in. przez wojsko i ratowników. Pomaga szybko obniżyć stres, uspokoić układ nerwowy oraz poprawić koncentrację.",
+    desc: "Technika stosowana przez wojsko oraz ratowników. Pomaga szybko obniżyć stres oraz poprawić koncentrację.",
     phases: [
       { label: "Wdech", duration: 4 },
       { label: "Wstrzymanie", duration: 4 },
@@ -12,8 +12,8 @@ export const exercises = [
   },
 
   {
-    title: "Oddychanie 4-7-8",
-    desc: "Ćwiczenie zalecane przy problemach z zasypianiem. Wydłużony wydech aktywuje układ przywspółczulny oraz sprzyja relaksacji.",
+    title: "Oddychanie 4–7–8",
+    desc: "Ćwiczenie zalecane przy problemach z\u00A0zasypianiem. Wydłużony wydech aktywuje układ przywspółczulny oraz sprzyja relaksacji.",
     phases: [
       { label: "Wdech", duration: 4 },
       { label: "Wstrzymanie", duration: 7 },
@@ -23,7 +23,7 @@ export const exercises = [
 
   {
     title: "Oddychanie przeponowe",
-    desc: "Podstawowa technika stosowana w psychoterapii i rehabilitacji oddechowej. Obniża napięcie, poprawia dotlenienie organizmu.",
+    desc: "Podstawowa technika stosowana w\u00A0psychoterapii oraz rehabilitacji oddechowej. Obniża napięcie oraz poprawia dotlenienie organizmu.",
     phases: [
       { label: "Wdech", duration: 5 },
       { label: "Wydech", duration: 7 }
@@ -32,7 +32,7 @@ export const exercises = [
 
   {
     title: "Oddychanie koherentne",
-    desc: "Rytm oddechu zsynchronizowany z pracą serca. Poprawia zmienność rytmu serca (HRV) oraz pomaga regulować emocje.",
+    desc: "Rytm oddechu zsynchronizowany z\u00A0pracą serca. Poprawia zmienność rytmu serca HRV oraz wspiera regulację emocji.",
     phases: [
       { label: "Wdech", duration: 5 },
       { label: "Wydech", duration: 5 }
@@ -41,7 +41,7 @@ export const exercises = [
 
   {
     title: "Fizjologiczne westchnienie",
-    desc: "Dwa krótkie wdechy przez nos i długi wydech przez usta. Jedna z najszybszych metod obniżania stresu i napięcia.",
+    desc: "Dwa krótkie wdechy przez nos oraz długi wydech przez usta. Jedna z\u00A0najszybszych metod obniżania stresu oraz napięcia.",
     phases: [
       { label: "Wdech", duration: 2 },
       { label: "Wdech", duration: 1 },
@@ -51,7 +51,7 @@ export const exercises = [
 
   {
     title: "Oddychanie rezonansowe",
-    desc: "Oddychanie w tempie rezonansowym, stosowane w terapii lęku. Sprzyja stabilizacji emocjonalnej.",
+    desc: "Oddychanie w\u00A0tempie rezonansowym stosowane w\u00A0terapii lęku. Sprzyja stabilizacji emocjonalnej.",
     phases: [
       { label: "Wdech", duration: 6 },
       { label: "Wydech", duration: 6 }
@@ -60,7 +60,7 @@ export const exercises = [
 
   {
     title: "Wydłużony wydech",
-    desc: "Prosta technika skupiona na długim wydechu. Pomaga szybko wyciszyć układ nerwowy i zmniejszyć napięcie.",
+    desc: "Prosta technika skupiona na długim wydechu. Pomaga szybko wyciszyć układ nerwowy oraz zmniejszyć napięcie.",
     phases: [
       { label: "Wdech", duration: 4 },
       { label: "Wydech", duration: 8 }
@@ -69,7 +69,7 @@ export const exercises = [
 
   {
     title: "Oddech na skupienie",
-    desc: "Krótki rytm oddechowy poprawiający koncentrację i gotowość umysłową, bez nadmiernego pobudzenia.",
+    desc: "Krótki rytm oddechowy poprawiający koncentrację oraz gotowość umysłową bez nadmiernego pobudzenia.",
     phases: [
       { label: "Wdech", duration: 3 },
       { label: "Wstrzymanie", duration: 3 },
@@ -79,7 +79,7 @@ export const exercises = [
 
   {
     title: "Oddychanie relaksacyjne",
-    desc: "Zrównoważone ćwiczenie z pauzą po wdechu. Dobre na wieczór i przed snem.",
+    desc: "Zrównoważone ćwiczenie z\u00A0pauzą po wdechu. Dobre na wieczór oraz przed snem.",
     phases: [
       { label: "Wdech", duration: 6 },
       { label: "Wstrzymanie", duration: 3 },
@@ -89,7 +89,7 @@ export const exercises = [
 
   {
     title: "Oddychanie uspokajające",
-    desc: "Ćwiczenie oparte na krótkim wdechu i bardzo długim wydechu. Skuteczne przy silnym stresie i napięciu emocjonalnym.",
+    desc: "Ćwiczenie oparte na krótkim wdechu oraz bardzo długim wydechu. Skuteczne przy silnym stresie oraz napięciu emocjonalnym.",
     phases: [
       { label: "Wdech", duration: 5 },
       { label: "Wydech", duration: 8 }
