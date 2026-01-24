@@ -28,8 +28,6 @@ const APP_ASSETS = [
 
 // 1. Instalacja
 self.addEventListener('install', event => {
-  self.skipWaiting();
-
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(APP_ASSETS))
@@ -112,3 +110,4 @@ self.addEventListener('fetch', event => {
     event.respondWith(staleWhileRevalidate(request));
   }
 });
+
