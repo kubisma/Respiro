@@ -22,8 +22,8 @@ const APP_ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './favicon.ico',
-  './screenshots/desktop-home.png',
-  './screenshots/mobile-home.png'
+  './screenshots/desktop-menu.png',
+  './screenshots/mobile-menu.png'
 ];
 
 // 1. Instalacja
