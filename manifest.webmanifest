@@ -25,14 +25,14 @@
   ],  
   "screenshots": [
   {
-    "src": "/screenshots/mobile-home.png",
+    "src": "/screenshots/mobile-menu.png",
     "sizes": "1080x1920",
     "type": "image/png",
     "form_factor": "narrow",
     "label": "Ekran główny aplikacji - aplikacja mobilna"
   },
   {
-    "src": "/screenshots/desktop-home.png",
+    "src": "/screenshots/desktop-menu.png",
     "sizes": "1920x1080",
     "type": "image/png",
     "form_factor": "wide",
@@ -40,3 +40,4 @@
   }
 ]
 }
+
