@@ -9,7 +9,7 @@ const PHASE_SCALE = {
   Wstrzymanie: 1
 };
 
-// Start sesji
+// Przygotowanie sesji
 export function startSession(
   exercise,
   onUpdate,
@@ -41,7 +41,7 @@ export function startSession(
     }
   }
 
-  // Obsługa czasu sesji i zmiana faz
+  // Obsługa czasu sesji i zmiany faz
   function tickSession() {
     const phase = phases[phaseIndex];
 
@@ -92,7 +92,7 @@ export function stopSession() {
   intervalId = null;
 }
 
-// Tworzenie sesji 
+// Tworzenie cyklu 
 function buildPhases(exercise) {
   return [
     {
