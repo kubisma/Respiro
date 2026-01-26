@@ -4,37 +4,43 @@ const APP_ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
+  './favicon.ico',
+
   './css/style.css',
   './fonts/lato-regular.woff2',
+
   './src/app.js',
   './src/data.js',
   './src/dom.js',
   './src/features.js',
+  './src/offline.js',
   './src/session.js',
   './src/sound.js',
   './src/state.js',
+  './src/texts.js',
   './src/theme.js',
   './src/ui.js',
-  './src/offline.js',
+
   './sounds/inhale.mp3',
   './sounds/hold.mp3',
   './sounds/exhale.mp3',
+
   './icons/icon-192.png',
-  './icons/icon-512.png',
-  './favicon.ico',
-  './screenshots/desktop-menu.png',
-  './screenshots/mobile-menu.png'
+  './icons/icon-512.png'
 ];
 
-// 1. Instalacja
+
+// Instalacja
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_ASSETS))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(APP_ASSETS);
+    })
   );
 });
 
-// 2. Aktywacja
+// Aktywacja
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -47,67 +53,16 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Zasoby cache first
-const isCacheFirstAsset = request => {
-  const url = request.url;
-
-  return (
-    url.includes('/icons/') ||
-    url.includes('/sounds/') ||
-    url.includes('/fonts/') ||
-    url.includes('/screenshots/') ||
-    url.endsWith('.ico') ||
-    url.endsWith('.woff2') ||
-    url.endsWith('.mp3') ||
-    url.endsWith('.png')
-  );
-};
-
-// Strategia cache first
-const cacheFirst = request =>
-  caches.match(request).then(cached => {
-    if (cached) return cached;
-
-    return fetch(request).then(response => {
-      if (!response || !response.ok) return response;
-
-      const clone = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-
-      return response;
-    });
-  });
-
-// Strategia stale while revalidate
-const staleWhileRevalidate = request =>
-  caches.match(request).then(cached => {
-    const fetchPromise = fetch(request)
-      .then(response => {
-        if (!response || !response.ok) return response;
-
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-
-        return response;
-      })
-      .catch(() => cached);
-
-    return cached || fetchPromise;
-  });
-
-// Obsługa zasobów
+// Obsługa zasobów cache first
 self.addEventListener('fetch', event => {
   const { request } = event;
 
   if (request.method !== 'GET') return;
+  if (new URL(request.url).origin !== self.location.origin) return;
 
-  const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
-
-  if (isCacheFirstAsset(request)) {
-    event.respondWith(cacheFirst(request));
-  } else {
-    event.respondWith(staleWhileRevalidate(request));
-  }
+  event.respondWith(
+    caches.match(request).then(cached => {
+      return cached || fetch(request);
+    })
+  );
 });
-
