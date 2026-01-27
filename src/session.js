@@ -13,9 +13,10 @@ const PHASE_SCALE = {
 export function startSession(
   exercise,
   onUpdate,
-  targetMinutes = 5) {
-
+  targetMinutes = 5
+) {
   stopSession();
+
   const phases = buildPhases(exercise);
 
   const cycleDuration = exercise.phases.reduce((sum, p) => sum + p.duration, 0);
@@ -25,23 +26,8 @@ export function startSession(
   let phaseIndex = 0;
   let remaining = phases[0].duration;
   let cyclesLeft = cycles;
-  let lastTickTime = Date.now();
   let totalRemaining = PREP_TIME + cycleDuration * cycles;
 
-  function tick() {
-    const now = Date.now();
-    const elapsedSeconds = Math.floor((now - lastTickTime) / 1000);
-
-    if (elapsedSeconds <= 0) return;
-
-    lastTickTime += elapsedSeconds * 1000;
-
-    for (let i = 0; i < elapsedSeconds; i++) {
-      tickSession();
-    }
-  }
-
-  // Obsługa czasu sesji i zmiany faz
   function tickSession() {
     const phase = phases[phaseIndex];
 
@@ -61,7 +47,6 @@ export function startSession(
       if (phaseIndex < phases.length - 1) {
         phaseIndex++;
       } else {
-
         cyclesLeft--;
 
         if (cyclesLeft === 0) {
@@ -73,15 +58,15 @@ export function startSession(
           });
           return;
         }
-        phaseIndex = 1;
-      }
 
+        phaseIndex = 1; 
+      }
       remaining = phases[phaseIndex].duration;
     }
   }
 
-  tickSession();
-  intervalId = setInterval(tick, 250);
+  tickSession();              
+  intervalId = setInterval(tickSession, 1000);
 }
 
 // Zatrzymanie sesji
