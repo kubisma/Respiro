@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Respiro</title>
+
   <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#030717">
@@ -17,7 +18,7 @@
   <header class="topbar">
     <h1>Respiro</h1>
     <button id="aboutBtn" class="secondary">O aplikacji</button>
-    <button id="themeBtn" class="secondary" aria-label="Zmień motyw">Motyw jasny</button>
+    <button id="themeBtn" class="secondary">Motyw jasny</button>
   </header>
 
   <main class="container">
@@ -73,7 +74,7 @@
 
     <!-- O aplikacji -->
     <section id="view-about" class="view">
-      <button id="aboutBackBtn" class="secondary">Lista ćwiczeń</button>
+      <button id="aboutBtn" class="secondary">"O aplikacji"</button>
 
       <h2>O aplikacji</h2>
 
@@ -112,14 +113,14 @@
 
   <div id="offlineBanner">Aplikacja jest w&nbsp;trybie offline</div>
 
-  <script type="module" src="./src/app.js"></script>
+  <script type="module" src="src/app.js"></script>
 
   <!-- Rejestracja service worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker
-          .register('./sw.js')
+          .register('sw.js')
           .then(reg => {
             console.log(
               'Service Worker zarejestrowany:',
