@@ -1,8 +1,8 @@
 const CACHE_NAME = 'respiro-v1';
 
 const APP_ASSETS = [
-  './',                     
-  'index.html',            
+  './',
+  'index.html',
   'manifest.webmanifest',
   'favicon.ico',
 
@@ -24,6 +24,8 @@ const APP_ASSETS = [
   'sounds/inhale.mp3',
   'sounds/hold.mp3',
   'sounds/exhale.mp3',
+  'sounds/finish.mp3',
+  'sounds/breathe.mp3',
 
   'icons/icon-192.png',
   'icons/icon-512.png'
@@ -31,7 +33,6 @@ const APP_ASSETS = [
 
 // Instalacja
 self.addEventListener('install', event => {
-  self.skipWaiting();    
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(APP_ASSETS);
@@ -39,7 +40,7 @@ self.addEventListener('install', event => {
   );
 });
 
-// Aktywacja
+// Aktywacja 
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -52,16 +53,27 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Obsługa zasobów cache first
+// Obsługa żądań stale while revalidate
 self.addEventListener('fetch', event => {
   const { request } = event;
 
   if (request.method !== 'GET') return;
-  if (new URL(request.url).origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(request).then(cached => {
-      return cached || fetch(request);
+    caches.match(request).then(cachedResponse => {
+      
+      const networkFetch = fetch(request)
+        .then(networkResponse => {
+          
+          if (networkResponse && networkResponse.ok && request.url.startsWith(self.location.origin)) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+          }          
+          return networkResponse;
+        })
+        .catch(() => cachedResponse);
+
+      return cachedResponse || networkFetch;
     })
   );
 });
