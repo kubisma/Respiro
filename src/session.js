@@ -54,7 +54,8 @@ export function startSession(
           onUpdate({
             phase: "Koniec",
             remaining: 0,
-            totalRemaining: 0
+            totalRemaining: 0,
+            phaseChanged: true
           });
           return;
         }
