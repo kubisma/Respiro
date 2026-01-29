@@ -7,7 +7,9 @@ audio.volume = 0.5;
 const PHASE_SOUNDS = {
   Wdech: "sounds/inhale.mp3",
   Wydech: "sounds/exhale.mp3",
-  Wstrzymanie: "sounds/hold.mp3"
+  Wstrzymanie: "sounds/hold.mp3",
+  Oddychanie: "sounds/breathe.mp3",
+  Koniec: "sounds/finish.mp3"
 };
 
 // Odtwarzanie dźwięku dla aktualnej fazy ćwiczenia
