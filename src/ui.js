@@ -27,7 +27,7 @@ export function renderExerciseList(exercises, onSelect) {
     title.textContent = ex.title;
 
     const desc = document.createElement("p");
-    desc.textContent = ex.desc;
+    desc.textContent = ex.shortDesc;
 
     card.append(title, desc);
 
@@ -46,7 +46,7 @@ export function renderDetails(exercise) {
   ) return;
 
   dom.detailsTitle.textContent = exercise.title;
-  dom.detailsDesc.textContent = exercise.desc;
+  dom.detailsDesc.textContent = exercise.longDesc ?? exercise.shortDesc;
 
   dom.detailsParams.textContent = "";
 
