@@ -53,25 +53,32 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Obsługa żądań stale while revalidate
+// Obsługa żądań
 self.addEventListener('fetch', event => {
-  const { request } = event;
 
-  if (request.method !== 'GET') return;
+  if (event.request.method !== 'GET') return;
+  const { request } = event;
+  const url = request.url;
+
+  if (url.includes('/sounds/') || url.includes('/fonts/') || url.includes('/icons/')) {
+    event.respondWith(
+      caches.match(request).then(response => {
+        
+        return response || fetch(request);
+      })
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(request).then(cachedResponse => {
-      
-      const networkFetch = fetch(request)
-        .then(networkResponse => {
-          
-          if (networkResponse && networkResponse.ok && request.url.startsWith(self.location.origin)) {
-            const clone = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-          }          
-          return networkResponse;
-        })
-        .catch(() => cachedResponse);
+      const networkFetch = fetch(request).then(networkResponse => {
+        if (networkResponse.ok) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+        }
+        return networkResponse;
+      }).catch(() => cachedResponse);
 
       return cachedResponse || networkFetch;
     })
