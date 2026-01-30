@@ -46,7 +46,8 @@ export function renderDetails(exercise) {
   ) return;
 
   dom.detailsTitle.textContent = exercise.title;
-  dom.detailsDesc.textContent = exercise.longDesc ?? exercise.shortDesc;
+  dom.detailsDesc.textContent =
+    exercise.longDesc ?? exercise.shortDesc;
 
   dom.detailsParams.textContent = "";
 
@@ -62,52 +63,59 @@ export function updateSessionUI({
   phase,
   remaining,
   duration,
-  scale,
   phaseChanged,
   totalRemaining
 }) {
   if (!dom.circle || !dom.phase || !dom.timer) return;
 
+  // Koniec ćwiczenia
   if (phase === "Koniec") {
     dom.phase.textContent = getRandomText();
     dom.timer.textContent = "Koniec ćwiczenia";
 
-    dom.circle.style.transition = "none";
-    dom.circle.style.transform = "scale(1)";
+    dom.circle.style.transitionDuration = "0s";
+    dom.circle.classList.remove(
+      "breath-in",
+      "breath-out",
+      "breath-hold",
+      "breath-pulse"
+    );
     return;
   }
 
-  // Sesja ćwczenia
+  // Nazwa fazy
   dom.phase.textContent = phase;
 
   const min = Math.floor(totalRemaining / 60);
   const sec = totalRemaining % 60;
 
   dom.timer.textContent =
-    `${remaining}s • ${min}:${sec
-      .toString()
-      .padStart(2, "0")}`;
+    `${remaining}s • ${min}:${sec.toString().padStart(2, "0")}`;
 
   if (!phaseChanged) return;
 
-  if (phase === "Wstrzymanie") {
-    dom.circle.style.transition = "none";
-    return;
+  // Reset klas animacji
+  dom.circle.classList.remove(
+    "breath-in",
+    "breath-out",
+    "breath-hold",
+    "breath-pulse"
+  );
+
+  dom.circle.style.transitionDuration = `${duration}s`;
+
+  if (phase === "Wdech") {
+    dom.circle.classList.add("breath-in");
+
+  } else if (phase === "Wydech") {
+    dom.circle.classList.add("breath-out");
+
+  } else if (phase === "Oddychanie") {
+    dom.circle.classList.add("breath-pulse");
+
+  } else {
+    dom.circle.classList.add("breath-hold");
   }
-
-  /* Animacja powiększania / zmniejszania koła */
-  dom.circle.style.transition =
-    `transform ${duration}s linear`;
-
-  dom.circle.style.transform = `scale(${scale})`;
-}
-
-// Reset wizualizacji oddechu
-export function resetBreathingCircle() {
-  if (!dom.circle) return;
-
-  dom.circle.style.transition = "none";
-  dom.circle.style.transform = "scale(1)";
 }
 
 // Przycisk trybu pełnoekranowego
@@ -118,10 +126,7 @@ export function updateFullscreenButton(isFullscreen) {
     ? "Wyłącz pełny ekran"
     : "Pełny ekran";
 
-  dom.fsBtn.classList.toggle(
-    "active",
-    isFullscreen
-  );
+  dom.fsBtn.classList.toggle("active", isFullscreen);
 }
 
 // Przycisk blokady wygaszania ekranu
@@ -132,13 +137,10 @@ export function updateWakeLockButton(isActive) {
     ? "Blokada ekranu (Tak)"
     : "Blokada ekranu (Nie)";
 
-  dom.wakeBtn.classList.toggle(
-    "active",
-    isActive
-  );
+  dom.wakeBtn.classList.toggle("active", isActive);
 }
 
- // Przycisk dźwięku
+// Przycisk dźwięku
 export function updateSoundButton(isActive) {
   if (!dom.soundBtn) return;
 
@@ -146,10 +148,7 @@ export function updateSoundButton(isActive) {
     ? "Dźwięki włączone"
     : "Dźwięki wyłączone";
 
-  dom.soundBtn.classList.toggle(
-    "active",
-    isActive
-  );
+  dom.soundBtn.classList.toggle("active", isActive);
 }
 
 // Przycisk zmiany motywu
