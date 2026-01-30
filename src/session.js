@@ -2,13 +2,6 @@ let intervalId = null;
 
 const PREP_TIME = 3;
 
-// Skala animacji oddechu
-const PHASE_SCALE = {
-  Wdech: 1.1,
-  Wydech: 0.9,
-  Wstrzymanie: 1
-};
-
 // Przygotowanie sesji
 export function startSession(
   exercise,
@@ -35,7 +28,6 @@ export function startSession(
       phase: phase.label,
       remaining,
       duration: phase.duration,
-      scale: phase.scale,
       phaseChanged: remaining === phase.duration,
       totalRemaining
     });
@@ -83,13 +75,11 @@ function buildPhases(exercise) {
   return [
     {
       label: "Przygotowanie",
-      duration: PREP_TIME,
-      scale: 1
+      duration: PREP_TIME
     },
     ...exercise.phases.map(p => ({
       label: p.label,
-      duration: p.duration,
-      scale: PHASE_SCALE[p.label] ?? 1
+      duration: p.duration
     }))
   ];
 }
